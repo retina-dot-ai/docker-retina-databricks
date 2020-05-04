@@ -23,14 +23,6 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# default locale
-RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-  && locale-gen en_US.utf8 \
-  && /usr/sbin/update-locale LANG=en_US.UTF-8
-
-ENV LC_ALL=en_US.UTF-8
-ENV LANG=en_US.UTF-8
-
 # Make sure the USER env variable is set. The files exposed
 # by dbfs-fuse will be owned by this user.
 # Within the container, the USER is always root.
