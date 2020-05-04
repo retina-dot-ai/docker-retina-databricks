@@ -22,7 +22,6 @@ RUN apt-get update \
     libxml2-dev \
     littler \
     r-base \
-    r-base-dev \
   && add-apt-repository -r 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial-cran35/' \
   && apt-key del E298A3A825C0D65DFD57CBB651716619E084DAB9 \
   && ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
@@ -44,7 +43,6 @@ RUN apt-get update \
 #  install a specific version of htmltools
 # SparkR will be loaded by databricks in /databricks/spark/R/lib
 RUN install2.r --error --repos=$R_CRAN_REPO \
-    devtools \
     tidyverse \
     htmlwidgets \
     Rserve \
