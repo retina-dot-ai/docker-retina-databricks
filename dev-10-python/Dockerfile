@@ -1,20 +1,24 @@
 FROM ubuntu:16.04 as builder
 
+ARG CONDA_VERSION=4.8.3
+
 RUN apt-get update && apt-get install --yes \
     wget \
     libdigest-sha-perl \
     bzip2
 
-# Download miniconda 4.5.12, then upgrade it to 4.6.12.
+# Download miniconda 4.5.12, then upgrade it
 RUN wget --quiet --output-document miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh \
     && (echo '866ae9dff53ad0874e1d1a60b1ad1ef8  miniconda.sh' | md5sum -c) \
     && (echo 'e5e5b4cd2a918e0e96b395534222773f7241dc59d776db1b9f7fedfcb489157a  miniconda.sh' | shasum -a 256 -c) \
     # Conda must be installed at /databricks/conda
     && /bin/bash miniconda.sh -b -p /databricks/conda \
     && rm miniconda.sh \
-    && /databricks/conda/bin/conda install --name base conda=4.6.12
+    && /databricks/conda/bin/conda install --name base conda=${CONDA_VERSION}
 
 FROM retina/databricks-dev-00-base:latest
+
+MAINTAINER "Brad Ito" brad@retina.ai
 
 COPY --from=builder /databricks/conda /databricks/conda
 
