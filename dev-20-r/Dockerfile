@@ -8,7 +8,9 @@ ARG R_CRAN_REPO=https://cran-mirror.retina.ai/2019-09-04
 # based on these instructions (avoiding firewall issue for some users):
 # https://cran.rstudio.com/bin/linux/ubuntu/#secure-apt
 RUN apt-get update \
-  && apt-get install --yes software-properties-common apt-transport-https \
+  && apt-get install --yes --no-install-recommends \
+    software-properties-common \
+    apt-transport-https \
   && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
   && gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add - \
   && add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial-cran35/' \
@@ -21,7 +23,6 @@ RUN apt-get update \
     littler \
     r-base \
     r-base-dev \
-    r-recommended \
   && add-apt-repository -r 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial-cran35/' \
   && apt-key del E298A3A825C0D65DFD57CBB651716619E084DAB9 \
   && ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
@@ -45,7 +46,6 @@ RUN apt-get update \
 RUN install2.r --error --repos=$R_CRAN_REPO \
     devtools \
     tidyverse \
-    testthat \
     htmlwidgets \
     Rserve \
     sparklyr \
