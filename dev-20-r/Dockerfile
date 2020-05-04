@@ -1,6 +1,6 @@
 FROM retina/databricks-dev-10-python:latest
 
-ARG R_CRAN_REPO=https://cran-mirror.retina.ai/2019-09-04
+ARG R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-04-01
 
 # Ubuntu 16.04.3 LTS installs R version 3.2.3 by default. This is fairly out dated.
 # We add RStudio's debian source to install the latest r-base version (3.6.0)
@@ -52,4 +52,4 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
   && install2.r --error \
     --repos=https://mran.microsoft.com/snapshot/2017-02-26 hwriterPlus \
   && install2.r --error \
-    --repos=https://mran.microsoft.com/snapshot/2020-04-01 htmltools
+    --repos=$R_CRAN_REPO htmltools
