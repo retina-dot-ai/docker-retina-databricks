@@ -2,6 +2,9 @@ FROM ubuntu:16.04
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
+# avoid interactive stops to installers
+ENV DEBIAN_FRONTEND=noninteractive
+
 # for base spark clusters: openjdk-8-jdk, iproute2, bash, sudo, coreutils procps
 # for dbfs: fuse
 # to access clusters: openssh-server
@@ -19,3 +22,20 @@ RUN apt-get update \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# default locale
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+  && locale-gen en_US.utf8 \
+  && /usr/sbin/update-locale LANG=en_US.UTF-8
+
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+
+# Make sure the USER env variable is set. The files exposed
+# by dbfs-fuse will be owned by this user.
+# Within the container, the USER is always root.
+ENV USER root
+
+# Warning: the created user has root permissions inside the container
+# Warning: you still need to start the ssh process with `sudo service ssh start`
+RUN useradd --create-home --shell /bin/bash --groups sudo ubuntu
