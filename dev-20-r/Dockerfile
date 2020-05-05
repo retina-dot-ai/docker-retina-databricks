@@ -2,7 +2,7 @@ FROM retina/databricks-dev-10-python:latest
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
-ARG R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-04-01
+ARG R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-02-26
 
 # Ubuntu 16.04.3 LTS installs R version 3.2.3 by default. This is fairly out dated.
 # We add RStudio's debian source to install the latest r-base version (3.6.0)
