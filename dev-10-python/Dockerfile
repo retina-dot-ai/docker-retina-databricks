@@ -34,6 +34,13 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env
   && /databricks/conda/bin/conda config --system --set channel_priority strict \
   && /databricks/conda/bin/conda config --system --set always_yes True
 
+RUN apt-get update \
+  && apt-get install --yes --no-install-recommends \
+    python-apt \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # This environment variable must be set to indicate the conda environment to activate.
 # Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
 # The second one is necessary so that the python notebook/repl can be started (won't work without it)
