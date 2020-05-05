@@ -1,5 +1,7 @@
 FROM retina/databricks-dev-10-python:latest
 
+MAINTAINER "Brad Ito" brad@retina.ai
+
 ARG R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-04-01
 
 # Ubuntu 16.04.3 LTS installs R version 3.2.3 by default. This is fairly out dated.
