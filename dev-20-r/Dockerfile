@@ -78,14 +78,12 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     codetools \
     colorspace \
     commonmark \
-    compiler \
     config \
     covr \
     crayon \
     crosstalk \
     curl \
     data.table \
-    datasets \
     dbplyr \
     DBI \
     desc \
@@ -110,9 +108,6 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     globals \
     glue \
     gower \
-    graphics \
-    grDevices \
-    grid \
     gridExtra \
     gsubfn \
     gtable \
@@ -142,7 +137,6 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     MASS \
     Matrix \
     memoise \
-    methods \
     mgcv \
     mime \
     ModelMetrics \
@@ -152,7 +146,6 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     nnet \
     numDeriv \
     openssl \
-    parallel \
     pillar \
     pkgbuild \
     pkgconfig \
@@ -188,7 +181,7 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     rjson \
     rlang \
     rmarkdown \
-    RODBC \
+    # RODBC \
     roxygen2 \
     rpart \
     rprojroot \
@@ -201,16 +194,12 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     shiny \
     sourcetools \
     spatial \
-    splines \
     sqldf \
     SQUAREM \
-    stats \
-    stats4 \
     stringi \
     stringr \
     survival \
     sys \
-    tcltk \
     TeachingDemos \
     testthat \
     tibble \
@@ -218,10 +207,8 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     tidyselect \
     timeDate \
     tinytex \
-    tools \
     usethis \
     utf8 \
-    utils \
     vctrs \
     viridisLite \
     whisker \
