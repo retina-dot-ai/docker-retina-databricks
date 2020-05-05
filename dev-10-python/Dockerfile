@@ -24,14 +24,15 @@ COPY --from=builder /databricks/conda /databricks/conda
 
 COPY env.yml /databricks/.conda-env-def/env.yml
 
+# Install conda environment and link it
 RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env.yml \
-    # Source conda.sh for all login shells.
-    && ln -s /databricks/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-
-# Conda recommends using strict channel priority speed up conda operations and reduce package incompatibility problems.
-# Set always_yes to avoid needing -y flags, and improve conda experience in Databricks notebooks.
-RUN /databricks/conda/bin/conda config --system --set channel_priority strict \
-    && /databricks/conda/bin/conda config --system --set always_yes True
+  # Source conda.sh for all login shells.
+  && ln -s /databricks/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
+  && /databricks/conda/bin/conda clean --all \
+  # Conda recommends using strict channel priority speed up conda operations and reduce package incompatibility problems.
+  # Set always_yes to avoid needing -y flags, and improve conda experience in Databricks notebooks.
+  && /databricks/conda/bin/conda config --system --set channel_priority strict \
+  && /databricks/conda/bin/conda config --system --set always_yes True
 
 # This environment variable must be set to indicate the conda environment to activate.
 # Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
