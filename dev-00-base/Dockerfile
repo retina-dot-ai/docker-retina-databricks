@@ -9,6 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # for dbfs: fuse
 # to access clusters: openssh-server
 RUN apt-get update \
+  && apt-get upgrade -y \
   && apt-get install --yes --no-install-recommends \
     openjdk-8-jdk \
     iproute2 \
