@@ -7,14 +7,15 @@ ARG R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-04-07
 COPY standard-requirements.txt /databricks/standard-requirements.txt
 
 RUN conda activate $DATABRICKS_ROOT_CONDA_ENV \
-  && conda install --no-update-deps -c conda-forge \
+  && conda install --no-update-deps -c conda-forge --no-channel-priority \
     --file /databricks/standard-requirements.txt \
   && pip install \
     ipython-genutils \
     jupyter-client \
     jupyter-core \
     ssh-import-id \
-  && conda clean --all -f -y
+  && conda clean --all -f -y \
+  && rm -rf /tmp/* /var/tmp/*
 
 # install python-apt via apt
 RUN apt-get update \
