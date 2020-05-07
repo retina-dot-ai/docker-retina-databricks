@@ -5,6 +5,7 @@ MAINTAINER "Brad Ito" brad@retina.ai
 # avoid interactive stops to installers
 ENV DEBIAN_FRONTEND=noninteractive
 
+# https://docs.databricks.com/clusters/custom-containers.html
 # for base spark clusters: openjdk-8-jdk, iproute2, bash, sudo, coreutils procps
 # for dbfs: fuse
 # to access clusters: openssh-server
