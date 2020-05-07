@@ -21,6 +21,7 @@ RUN apt-get update \
     fuse \
     openssh-server \
   && /var/lib/dpkg/info/ca-certificates-java.postinst configure \
+  && sed -i -e 's/mesg n .*true/tty -s \&\& mesg n/g' ~/.profile \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
