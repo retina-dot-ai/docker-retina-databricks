@@ -42,7 +42,7 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env
   && /databricks/conda/bin/conda init bash \
   && source ~/.bashrc \
   && /databricks/conda/bin/conda clean --all \
-  && rm -rf /tmp/* /var/tmp/*
+  && rm -rf /root/.cache /tmp/* /var/tmp/*
 
 # This environment variable must be set to indicate the conda environment to activate.
 # Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
