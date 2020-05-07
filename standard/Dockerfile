@@ -12,7 +12,7 @@ RUN conda activate $DATABRICKS_ROOT_CONDA_ENV \
     jupyter-core \
     ssh-import-id \
   && conda clean --all -f -y \
-  && rm -rf /tmp/* /var/tmp/*
+  && rm -rf /root/.cache /tmp/* /var/tmp/*
 
 # install python-apt via apt
 RUN apt-get update \
