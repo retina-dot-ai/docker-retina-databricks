@@ -29,10 +29,10 @@ COPY --from=builder /databricks/conda /databricks/conda
 # switch from /bin/sh to /bin/bash for following shell commands
 SHELL ["/bin/bash", "-c", "-l"]
 
-COPY env.yml /databricks/.conda-env-def/env.yml
+COPY environment.yml /databricks/.conda-env-def/environment.yml
 
 # Install conda environment and link it
-RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env.yml \
+RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/environment.yml \
   # Source conda.sh for all login shells.
   && ln -s /databricks/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
   # Conda recommends using strict channel priority speed up conda operations and reduce package incompatibility problems.
