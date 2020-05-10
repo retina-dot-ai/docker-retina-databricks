@@ -50,4 +50,5 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     htmlwidgets \
     Rserve \
   && install2.r --error \
-    --repos=https://mran.microsoft.com/snapshot/2017-02-26 hwriterPlus
+    --repos=https://mran.microsoft.com/snapshot/2017-02-26 hwriterPlus \
+  && rm -rf /tmp/* /var/tmp/*
