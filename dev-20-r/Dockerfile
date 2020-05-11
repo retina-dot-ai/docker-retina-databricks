@@ -34,7 +34,7 @@ RUN apt-get update \
   && echo "" > /usr/lib/R/etc/Rprofile.site \
   && echo "options(repos=c(CRAN='$R_CRAN_REPO'))" >> /usr/lib/R/etc/Rprofile.site \
   && echo "" >> /usr/lib/R/etc/Rprofile.site \
-  && R -e "install.packages('docopt')" \
+  && R -e "install.packages(c('docopt', 'remotes'))" \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
