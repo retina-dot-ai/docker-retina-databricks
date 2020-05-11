@@ -84,8 +84,6 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     hms \
     httpuv \
     httr \
-    hwriter \
-    hwriterPlus \
     ini \
     ipred \
     isoband \
