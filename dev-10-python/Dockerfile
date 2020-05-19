@@ -49,3 +49,6 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env
 # The second one is necessary so that the python notebook/repl can be started (won't work without it)
 ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
 ENV DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
+
+# pyarrow: Columnar “Streaming Protocol” Change since 0.14.0
+ENV ARROW_PRE_0_15_IPC_FORMAT=1

@@ -6,7 +6,7 @@ dependencies:
   - python==3.7.7
   - pip==20.0.2
   - pip:
-    - pyarrow==0.14.1
+    - pyarrow==0.17.1
   - ipython==7.14.0
   - nomkl=3
   - numpy==1.18.4
