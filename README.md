@@ -17,7 +17,7 @@ These containers are built upon ubuntu for practical extension, and try to use t
 # Images:
 
 * [retina/databricks-minimal](https://hub.docker.com/r/retina/databricks-minimal) installs just the basics to be able to run notebooks.  For Python, this includes pandas and numpy.  For R, it includes the tidyverse.
-* [retina/databricks-standard](https://hub.docker.com/r/retina/databricks-standard) adds basic dependencies aimed at bringing parity with the out-of-the-box Databricks Runtime 6.x
+* [retina/databricks-standard](https://hub.docker.com/r/retina/databricks-standard) adds standard dependencies aimed at bringing parity with the out-of-the-box Databricks Runtime 6.x
 
 ### Notes:
 
