@@ -50,6 +50,7 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env
 ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
 ENV DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
 
-# pyarrow: Columnar “Streaming Protocol” Change since 0.14.0
-# use this so that Spark works with pyarrow
+# pyarrow: 0.15.0 breaks the streaming protocol used with Spark
+# https://arrow.apache.org/blog/2019/10/06/0.15.0-release/
+# IMPORTANT: use this so that Spark works with pyarrow
 ENV ARROW_PRE_0_15_IPC_FORMAT=1
