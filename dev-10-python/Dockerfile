@@ -51,4 +51,5 @@ ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
 ENV DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
 
 # pyarrow: Columnar “Streaming Protocol” Change since 0.14.0
+# use this so that Spark works with pyarrow
 ENV ARROW_PRE_0_15_IPC_FORMAT=1
