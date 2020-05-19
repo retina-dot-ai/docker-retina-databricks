@@ -6,7 +6,7 @@ Docker images for use with
 This repo contains the code used to create a custom containers with full support for:
 
 - Python (including pip and [conda](https://docs.conda.io/en/latest/miniconda.html))
-- R (with default usage of [MRAN](https://mran.microsoft.com/documents/rro/reproducibility))
+- R (with [MRAN](https://mran.microsoft.com/documents/rro/reproducibility) and [littler](https://cran.r-project.org/web/packages/littler/vignettes/littler-examples.html))
 - Scala
 - Java and Jar files
 - DBFS mounts
