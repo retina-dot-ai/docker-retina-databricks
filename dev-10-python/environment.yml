@@ -1,10 +1,10 @@
-name: dcs-minimal
+name: retina-databricks
 channels:
-  - conda-forge
   - default
+  - conda-forge
 dependencies:
   - python==3.7.7
-  - pip==20.0.2
+  - pip==20.1.1
   - ipython==7.14.0
   - nomkl=3
   - numpy==1.18.4
@@ -12,5 +12,5 @@ dependencies:
   - pyarrow==0.17.1
   - python-dateutil==2.8.1
   - pytz==2020.1
-  - six==1.14.0
+  - six==1.15.0
 

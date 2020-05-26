@@ -35,20 +35,18 @@ COPY environment.yml /databricks/.conda-env-def/environment.yml
 RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/environment.yml \
   # Source conda.sh for all login shells.
   && ln -s /databricks/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
-  # Conda recommends using strict channel priority speed up conda operations and reduce package incompatibility problems.
   # Set always_yes to avoid needing -y flags, and improve conda experience in Databricks notebooks.
-  && /databricks/conda/bin/conda config --system --set channel_priority strict \
   && /databricks/conda/bin/conda config --system --set always_yes True \
   && /databricks/conda/bin/conda init bash \
   && source ~/.bashrc \
-  && /databricks/conda/bin/conda clean --all \
+  && /databricks/conda/bin/conda clean --all --yes \
   && rm -rf /root/.cache /tmp/* /var/tmp/*
 
 # This environment variable must be set to indicate the conda environment to activate.
 # Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
 # The second one is necessary so that the python notebook/repl can be started (won't work without it)
-ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
-ENV DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
+ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=retina-databricks
+ENV DATABRICKS_ROOT_CONDA_ENV=retina-databricks
 
 # pyarrow: 0.15.0 breaks the streaming protocol used with Spark
 # https://arrow.apache.org/blog/2019/10/06/0.15.0-release/
