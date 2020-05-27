@@ -6,13 +6,19 @@ Docker images for use with
 This repo contains the code used to create a custom containers with full support for:
 
 - Python (including pip and [conda](https://docs.conda.io/en/latest/miniconda.html))
+  * conda configured to use the default and [conda-forge](https://anaconda.org/conda-forge) channels
 - R (with [MRAN](https://mran.microsoft.com/documents/rro/reproducibility) and [littler](https://cran.r-project.org/web/packages/littler/vignettes/littler-examples.html))
 - Scala
 - Java and Jar files
 - DBFS mounts
 - ssh
 
-These containers are built upon ubuntu for practical extension, and try to use the latest versions of dependencies that will work with the Databricks Runtime 6.x.
+These containers are built upon ubuntu for practical extension, and try to use the latest versions of dependencies that will work with the Databricks Runtime 6.x.  Note that the "ML" versions of the databricks runtime do not currently work with custom
+docker containers such as these.
+
+Not yet implemented:
+
+- Ganglia
 
 # Images:
 
@@ -21,6 +27,6 @@ These containers are built upon ubuntu for practical extension, and try to use t
 
 ### Notes:
 
-This builds upon the [Databricks example containers](https://github.com/databricks/containers) in order to standardize multi-language support, and use more current dependencies.
+This builds upon the [Databricks example containers](https://github.com/databricks/containers) in order to standardize multi-language support (install R by default), and use more current dependencies.
 
 
