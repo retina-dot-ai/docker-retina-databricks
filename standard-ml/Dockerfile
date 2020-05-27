@@ -13,3 +13,8 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/ml-
 # override the environment variables for the anaconda env name
 ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=databricks-ml
 ENV DATABRICKS_ROOT_CONDA_ENV=databricks-ml
+
+RUN conda activate $DATABRICKS_ROOT_CONDA_ENV \
+  && conda config --append channels conda-forge \
+  && conda config --append channels pytorch \
+  && conda deactivate
