@@ -29,9 +29,14 @@ COPY --from=builder /databricks/conda /databricks/conda
 # switch from /bin/sh to /bin/bash for following shell commands
 SHELL ["/bin/bash", "-c", "-l"]
 
-COPY environment.yml /databricks/.conda-env-def/environment.yml
+# This environment variable must be set to indicate the conda environment to activate.
+# Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
+# The second one is necessary so that the python notebook/repl can be started (won't work without it)
+ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=retina-databricks
+ENV DATABRICKS_ROOT_CONDA_ENV=retina-databricks
 
 # Install conda environment and link it
+COPY environment.yml /databricks/.conda-env-def/environment.yml
 RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/environment.yml \
   # Source conda.sh for all login shells.
   && ln -s /databricks/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
@@ -39,14 +44,12 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env
   && /databricks/conda/bin/conda config --system --set always_yes True \
   && /databricks/conda/bin/conda init bash \
   && source ~/.bashrc \
-  && /databricks/conda/bin/conda clean --all --yes \
+  && /databricks/conda/bin/conda clean --all \
   && rm -rf /root/.cache /tmp/* /var/tmp/*
 
-# This environment variable must be set to indicate the conda environment to activate.
-# Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
-# The second one is necessary so that the python notebook/repl can be started (won't work without it)
-ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=retina-databricks
-ENV DATABRICKS_ROOT_CONDA_ENV=retina-databricks
+RUN conda activate $DATABRICKS_ROOT_CONDA_ENV \
+  && conda config --append channels conda-forge \
+  && conda deactivate
 
 # pyarrow: 0.15.0 breaks the streaming protocol used with Spark
 # https://arrow.apache.org/blog/2019/10/06/0.15.0-release/
