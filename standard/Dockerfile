@@ -4,14 +4,14 @@ MAINTAINER "Brad Ito" brad@retina.ai
 
 COPY standard_requirements.txt /databricks/standard_requirements.txt
 RUN conda activate $DATABRICKS_ROOT_CONDA_ENV \
-  && conda install --no-update-deps -c conda-forge --no-channel-priority \
+  && conda install --no-update-deps \
     --file /databricks/standard_requirements.txt \
   && pip install \
     ipython-genutils \
     jupyter-client \
     jupyter-core \
     ssh-import-id \
-  && conda clean --all -f -y \
+  && conda clean --all \
   && rm -rf /root/.cache /tmp/* /var/tmp/*
 
 # install python-apt via apt
