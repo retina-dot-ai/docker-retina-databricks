@@ -6,7 +6,9 @@ RUN apt-get update \
   && apt-get install --yes \
     wget \
     libdigest-sha-perl \
-    bzip2
+    bzip2 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Download miniconda, then upgrade it to the user-specified version
 # https://docs.conda.io/en/latest/miniconda_hashes.html
