@@ -11,10 +11,10 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Download miniconda, then upgrade it to the user-specified version
-# https://docs.conda.io/en/latest/miniconda_hashes.html
+# https://docs.conda.io/en/latest/miniconda.html#linux-installers
 # TODO upgrade python and pip and such to latest, to avoid deleting later
 RUN wget --quiet --output-document miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38_4.9.2-Linux-x86_64.sh \
-  && (echo '957d2f0f0701c3d1335e3b39f235d197837ad69a944fa6f5d8ad2c686b69df3b  miniconda.sh' | shasum -a 256 -c) \
+  && (echo '1314b90489f154602fd794accfc90446111514a5a72fe1f71ab83e07de9504a7  miniconda.sh' | shasum -a 256 -c) \
   # Conda must be installed at /databricks/conda
   && /bin/bash miniconda.sh -b -p /databricks/conda \
   && rm miniconda.sh \
