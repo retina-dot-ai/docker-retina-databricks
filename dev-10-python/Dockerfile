@@ -1,26 +1,26 @@
-FROM ubuntu:16.04 as builder
+FROM ubuntu:18.04 as builder
 
-ARG CONDA_VERSION=4.8.3
+ARG CONDA_VERSION=4.9.2
 
 RUN apt-get update \
   && apt-get install --yes \
-    wget \
-    libdigest-sha-perl \
-    bzip2 \
+  wget \
+  libdigest-sha-perl \
+  bzip2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Download miniconda, then upgrade it to the user-specified version
 # https://docs.conda.io/en/latest/miniconda_hashes.html
 # TODO upgrade python and pip and such to latest, to avoid deleting later
-RUN wget --quiet --output-document miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh \
-    && (echo '957d2f0f0701c3d1335e3b39f235d197837ad69a944fa6f5d8ad2c686b69df3b  miniconda.sh' | shasum -a 256 -c) \
-    # Conda must be installed at /databricks/conda
-    && /bin/bash miniconda.sh -b -p /databricks/conda \
-    && rm miniconda.sh \
-    && /databricks/conda/bin/conda install --name base conda=${CONDA_VERSION} python=3.7.7 \
-    && /databricks/conda/bin/conda update -n base -c defaults conda \
-    && /databricks/conda/bin/conda clean --all
+RUN wget --quiet --output-document miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38_4.9.2-Linux-x86_64.sh \
+  && (echo '957d2f0f0701c3d1335e3b39f235d197837ad69a944fa6f5d8ad2c686b69df3b  miniconda.sh' | shasum -a 256 -c) \
+  # Conda must be installed at /databricks/conda
+  && /bin/bash miniconda.sh -b -p /databricks/conda \
+  && rm miniconda.sh \
+  && /databricks/conda/bin/conda install --name base conda=${CONDA_VERSION} python=3.8.10 \
+  && /databricks/conda/bin/conda update -n base -c defaults conda \
+  && /databricks/conda/bin/conda clean --all
 
 FROM retina/databricks-dev-00-base:latest
 

@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
@@ -12,14 +12,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get upgrade -y \
   && apt-get install --yes --no-install-recommends \
-    openjdk-8-jdk \
-    iproute2 \
-    bash \
-    sudo \
-    coreutils \
-    procps \
-    fuse \
-    openssh-server \
+  openjdk-8-jdk \
+  iproute2 \
+  bash \
+  sudo \
+  coreutils \
+  procps \
+  fuse \
+  openssh-server \
   && /var/lib/dpkg/info/ca-certificates-java.postinst configure \
   && sed -i -e 's/mesg n .*true/tty -s \&\& mesg n/g' ~/.profile \
   && apt-get autoremove -y \
