@@ -52,8 +52,3 @@ RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env
 RUN conda activate $DATABRICKS_ROOT_CONDA_ENV \
   && conda config --append channels conda-forge \
   && conda deactivate
-
-# pyarrow: 0.15.0 breaks the streaming protocol used with Spark
-# https://arrow.apache.org/blog/2019/10/06/0.15.0-release/
-# IMPORTANT: use this so that Spark works with pyarrow
-ENV ARROW_PRE_0_15_IPC_FORMAT=1
