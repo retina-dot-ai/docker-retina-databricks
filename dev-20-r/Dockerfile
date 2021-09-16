@@ -2,8 +2,9 @@ FROM retina/databricks-dev-10-python:latest
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
-ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-07-14
+ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-04-07
 
+# Ubuntu 16.04.3 LTS installs R version 3.2.3 by default. This is fairly out dated.
 # We add RStudio's debian source to install the latest r-base version (3.6.0)
 # We are using the more secure long form of pgp key ID of marutter@gmail.com
 # based on these instructions (avoiding firewall issue for some users):
@@ -17,20 +18,16 @@ RUN apt-get update \
     dirmngr \
   && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
   && gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | apt-key add - \
-  && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
-  && apt-get upgrade --yes \
-  && apt-get install --yes \
+  && add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial-cran35/' \
+  && apt-get update \
+  && apt-get install --yes --no-install-recommends \
     curl \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \
-    r-base \
-    r-base-core \
-    r-base-dev \
-    r-recommended \
-    r-base-html \
     littler \
-    r-cran-littler \
+    r-base \
+    r-base-dev \
   && ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
   && ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
