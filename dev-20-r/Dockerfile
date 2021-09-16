@@ -2,7 +2,7 @@ FROM retina/databricks-dev-10-python:latest
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
-ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2021-07-28
+ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-07-14
 
 # We add RStudio's debian source to install the latest r-base version (3.6.0)
 # We are using the more secure long form of pgp key ID of marutter@gmail.com
@@ -10,16 +10,13 @@ ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2021-07-28
 # https://cran.rstudio.com/bin/linux/ubuntu/#secure-apt
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
-  && apt-get upgrade --yes \
   && apt-get install --yes --no-install-recommends \
     software-properties-common \
     apt-transport-https \
-    wget \
-  && apt-get install --yes --install-recommends \
-    dirmngr \
   && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
   && gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | apt-key add - \
   && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
+  && apt-get upgrade --yes \
   && apt-get install --yes \
     curl \
     libcurl4-openssl-dev \
