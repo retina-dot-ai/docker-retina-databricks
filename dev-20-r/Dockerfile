@@ -8,8 +8,8 @@ ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2021-09-08
 # https://cran.rstudio.com/bin/linux/ubuntu/#secure-apt
 # - docopt used by littler
 # - libxml2-dev libcurl4-openssl-dev libssl-dev libv8-dev used by tidyverse
-# - netbase solves a http bug in reveal js
-# - pandoc supports R docs
+# - netbase fixes https://github.com/snoyberg/http-client/issues/292
+# - pandoc used for rmarkdown
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
     software-properties-common \
