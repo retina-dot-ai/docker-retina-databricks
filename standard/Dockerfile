@@ -23,18 +23,20 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # install other R packages to match databricks runtime
-# https://docs.databricks.com/release-notes/runtime/7.0.html#installed-r-libraries
+# https://docs.databricks.com/release-notes/runtime/9.1.html#installed-r-libraries
 RUN install2.r --error --repos=$R_CRAN_REPO \
     askpass \
     assertthat \
     backports \
-    BH \
     bit \
     bit64 \
     blob \
     boot \
     brew \
+    brio \
     broom \
+    bslib \
+    cachem \
     callr \
     caret \
     cellranger \
@@ -47,18 +49,19 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     colorspace \
     commonmark \
     config \
-    covr \
+    cpp11 \
     crayon \
-    crosstalk \
+    credentials \
     curl \
     data.table \
     dbplyr \
     DBI \
     desc \
     devtools \
+    diffobj \
     digest \
     dplyr \
-    DT \
+    dtplyr \
     ellipsis \
     evaluate \
     fansi \
@@ -68,13 +71,19 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     foreign \
     forge \
     fs \
+    future \
+    future.apply \
+    gargle \
     generics \
+    gert \
     ggplot2 \
     gh \
-    git2r \
+    gitcreds \
     glmnet \
     globals \
     glue \
+    googledrive \
+    googlesheets4 \
     gower \
     gridExtra \
     gsubfn \
@@ -84,6 +93,7 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     hms \
     httpuv \
     httr \
+    ids \
     ini \
     ipred \
     isoband \
@@ -112,6 +122,7 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     nnet \
     numDeriv \
     openssl \
+    parallelly \
     pillar \
     pkgbuild \
     pkgconfig \
@@ -143,8 +154,6 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     remotes \
     reprex \
     reshape2 \
-    rex \
-    rjson \
     rlang \
     rmarkdown \
     # RODBC \
@@ -155,6 +164,7 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     rstudioapi \
     rversions \
     rvest \
+    sass \
     scales \
     selectr \
     shiny \
@@ -176,12 +186,16 @@ RUN install2.r --error --repos=$R_CRAN_REPO \
     tinytex \
     usethis \
     utf8 \
+    uuid \
     vctrs \
     viridisLite \
+    vroom \
+    waldo \
     whisker \
     withr \
     xfun \
     xml2 \
     xopen \
     xtable \
-    yaml
+    yaml \
+    zip

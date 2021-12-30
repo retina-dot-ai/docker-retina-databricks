@@ -1,6 +1,6 @@
-FROM ubuntu:18.04 as builder
+FROM ubuntu:20.04 as builder
 
-ARG CONDA_VERSION=4.9.2
+ARG CONDA_VERSION=4.10.3
 
 RUN apt-get update \
   && apt-get install --yes \
@@ -13,12 +13,12 @@ RUN apt-get update \
 # Download miniconda, then upgrade it to the user-specified version
 # https://docs.conda.io/en/latest/miniconda.html#linux-installers
 # TODO upgrade python and pip and such to latest, to avoid deleting later
-RUN wget --quiet --output-document miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38_4.9.2-Linux-x86_64.sh \
-  && (echo '1314b90489f154602fd794accfc90446111514a5a72fe1f71ab83e07de9504a7  miniconda.sh' | shasum -a 256 -c) \
+RUN wget --quiet --output-document miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh \
+  && (echo '935d72deb16e42739d69644977290395561b7a6db059b316958d97939e9bdf3d  miniconda.sh' | shasum -a 256 -c) \
   # Conda must be installed at /databricks/conda
   && /bin/bash miniconda.sh -b -p /databricks/conda \
   && rm miniconda.sh \
-  && /databricks/conda/bin/conda install --name base conda=${CONDA_VERSION} python=3.8.10 \
+  && /databricks/conda/bin/conda install --name base conda=${CONDA_VERSION} python=3.8.12 \
   && /databricks/conda/bin/conda update -n base -c defaults conda \
   && /databricks/conda/bin/conda clean --all
 

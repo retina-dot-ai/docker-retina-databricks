@@ -2,28 +2,28 @@ FROM retina/databricks-dev-10-python:latest
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
-ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2020-04-07
+ENV R_CRAN_REPO=https://mran.microsoft.com/snapshot/2021-09-08
 
-# Ubuntu 16.04.3 LTS installs R version 3.2.3 by default. This is fairly out dated.
-# We add RStudio's debian source to install the latest r-base version (3.6.0)
-# We are using the more secure long form of pgp key ID of marutter@gmail.com
-# based on these instructions (avoiding firewall issue for some users):
+# Install R 4.x
 # https://cran.rstudio.com/bin/linux/ubuntu/#secure-apt
-# https://cran.r-project.org/bin/linux/ubuntu/README.html
+# - docopt used by littler
+# - libxml2-dev libcurl4-openssl-dev libssl-dev libv8-dev used by tidyverse
+# - netbase solves a http bug in reveal js
+# - pandoc supports R docs
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
     software-properties-common \
     apt-transport-https \
   && apt-get install --yes --install-recommends \
     dirmngr \
-  && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
-  && gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | apt-key add - \
-  && add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial-cran35/' \
+  && wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc \
+  && add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" \
   && apt-get update \
   && apt-get install --yes --no-install-recommends \
     curl \
     libcurl4-openssl-dev \
     libssl-dev \
+    libv8-dev \
     libxml2-dev \
     littler \
     r-base \
@@ -37,13 +37,19 @@ RUN apt-get update \
   && echo "options(repos=c(CRAN='$R_CRAN_REPO'))" >> /usr/lib/R/etc/Rprofile.site \
   && echo "" >> /usr/lib/R/etc/Rprofile.site \
   && R -e "install.packages(c('docopt', 'remotes'))" \
+  && add-apt-repository ppa:c2d4u.team/c2d4u4.0+ \
+  && apt-get update \
+  && apt-get install --yes --no-install-recommends r-cran-tidyverse \
+  && apt-get install --yes --no-install-recommends r-cran-rstan \
+  && apt-get install --yes \
+    netbase \
+    pandoc \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # install basic and commonly-used R packages from a recent MRAN snapshot
 # as well as spark/databricks dependencies
-# - docopt used by littler
 # - Rserve (allows Spark to communicate with a local R process)
 # - hwriterPlus is used by databricks to render html
 #   but the package was removed by its author from CRAN
@@ -52,7 +58,6 @@ RUN apt-get update \
 #  install a specific version of htmltools
 # SparkR will be loaded by databricks in /databricks/spark/R/lib
 RUN install2.r --error \
-    tidyverse \
     htmltools \
     htmlwidgets \
     Rserve \
