@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 MAINTAINER "Brad Ito" brad@retina.ai
 
@@ -6,21 +6,30 @@ MAINTAINER "Brad Ito" brad@retina.ai
 ENV DEBIAN_FRONTEND=noninteractive
 
 # https://docs.databricks.com/clusters/custom-containers.html
-# for base spark clusters: openjdk-8-jdk, iproute2, bash, sudo, coreutils procps
+# for base spark clusters: iproute2, bash, sudo, coreutils procps
 # for dbfs: fuse
 # to access clusters: openssh-server
+# https://docs.azul.com/core/zulu-openjdk/install/debian#install-from-azul-apt-repository
 RUN apt-get update \
   && apt-get upgrade -y \
   && apt-get install --yes --no-install-recommends \
-  openjdk-8-jdk \
-  iproute2 \
-  bash \
-  sudo \
-  coreutils \
-  procps \
-  fuse \
-  openssh-server \
-  && /var/lib/dpkg/info/ca-certificates-java.postinst configure \
+    bash \
+    coreutils \
+    curl \
+    fuse \
+    gnupg \
+    iproute2 \
+    openssh-server \
+    procps \
+    sudo \
+  && apt-get install --yes wget \
+  && apt-key adv \
+    --keyserver hkp://keyserver.ubuntu.com:80 \
+    --recv-keys 0xB1998361219BD9C9 \
+  && curl -O https://cdn.azul.com/zulu/bin/zulu-repo_1.0.0-3_all.deb \
+  && apt-get install --yes ./zulu-repo_1.0.0-3_all.deb \
+  && apt-get update --yes \
+  && apt-get install --yes zulu8-jdk \
   && sed -i -e 's/mesg n .*true/tty -s \&\& mesg n/g' ~/.profile \
   && apt-get autoremove -y \
   && apt-get clean \
